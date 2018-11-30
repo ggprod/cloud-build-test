@@ -1,8 +1,10 @@
 
 const { Client } = require('pg')
-const client = new Client()
 
 setTimeout(() => {
+  console.log(process.env.PGHOST)
+  console.log(process.env.PGUSER)
+  const client = new Client()
   client.connect().then(res => {
     console.log('Connected!')
   }, err => {
