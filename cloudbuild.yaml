@@ -1,0 +1,20 @@
+steps:
+- name: gcr.io/cloud-builders/npm
+  args: ['install']
+  dir: 'container2'
+  id: A
+- name: gcr.io/cloud-builders/npm
+  args: ['start']
+  id: B
+  dir: 'container2'
+  waitFor: ['A']
+- name: gcr.io/cloud-builders/npm
+  args: ['install']
+  dir: 'container1'
+  waitFor: ['B']
+  id: C
+- name: gcr.io/cloud-builders/npm
+  args: ['start']
+  id: D
+  dir: 'container1'
+  waitFor: ['C']
