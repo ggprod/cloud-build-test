@@ -1,10 +1,10 @@
 
-const request = require('request')
+const { Client } = require('pg')
+const client = new Client()
 
-let startTime = new Date()
-request({ url: 'http://step_1:8081/hello', method: 'GET' }, (err, res, body) => {
-  console.log('Received error: ' + err)
-  console.log('Received response: ' + res)
-  console.log('Received, body: ' + body)  
+client.connect().then(res => {
+  console.log('Connected!')
+}, err => {
+  console.error('Could not connect, error: ' + JSON.stringify(err))
 })
 

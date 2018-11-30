@@ -1,28 +1,20 @@
 steps:
-- name: gcr.io/cloud-builders/npm
-  args: ['install']
-  dir: 'container2'
+- name: gcr.io/cloud-builders/docker
+  args: ['run', '--name', 'postgres-container', 'postgres:11.1']
+  env: ['POSTGRES_PASSWORD=postgres']
   id: A
 - name: gcr.io/cloud-builders/npm
-  args: ['start']
-  id: B
-  dir: 'container2'
-  waitFor: ['A']
-- name: gcr.io/cloud-builders/npm
   args: ['install']
   dir: 'container1'
-  waitFor: ['A']
-  id: C
+  waitFor: ['-']
+  id: B
 - name: gcr.io/cloud-builders/npm
   args: ['start']
-  id: D
+  env: ['PGHOST=step_0', 'PGPASSWORD=postgres', 'PGUSER=posgres', 'PGDATABASE=postgres']
+  id: C
   dir: 'container1'
-  waitFor: ['C']
+  waitFor: ['B']
 - name: 'gcr.io/cloud-builders/docker'
   id: Docker network inspect cloudbuild
   args: ["network", "inspect", "cloudbuild"]
-  waitFor: ['D']
-- name: 'gcr.io/cloud-builders/docker'
-  id: Docker ps before
-  args: ["container", "ls", "--no-trunc"]
-  waitFor: ['D']
+  waitFor: ['C']
