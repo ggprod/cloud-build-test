@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/docker
-  args: ['run', '--name', 'postgres-container', '-e POSTGRES_PASSWORD=postgres','postgres:11.1']
+  args: ['run', '--name', 'postgres-container', '-e', 'POSTGRES_PASSWORD=postgres','postgres:11.1']
   id: A
 - name: gcr.io/cloud-builders/npm
   args: ['install']
