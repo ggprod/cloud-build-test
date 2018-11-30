@@ -18,3 +18,11 @@ steps:
   id: D
   dir: 'container1'
   waitFor: ['C']
+- name: 'gcr.io/cloud-builders/docker'
+  id: Docker network inspect cloudbuild
+  args: ["network", "inspect", "cloudbuild"]
+  waitFor: ['D']
+- name: 'gcr.io/cloud-builders/docker'
+  id: Docker ps before
+  args: ["container", "ls", "--no-trunc"]
+  waitFor: ['D']
