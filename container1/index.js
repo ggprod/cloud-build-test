@@ -10,5 +10,5 @@ setTimeout(() => {
   }, err => {
     console.error('Could not connect, error: ' + JSON.stringify(err))
   })
-}, 30000)
+}, 40000)
 
