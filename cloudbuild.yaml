@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/docker
-  args: ['run', '--name', 'postgres-container', '-e', 'POSTGRES_PASSWORD=postgres','gcr.io/axon-staging/node-postgres']
+  args: ['run', '--name', 'postgres-container', '-e', 'POSTGRES_PASSWORD=postgres', '-p','5432:5432','postgres']
   id: A
 - name: gcr.io/cloud-builders/npm
   args: ['install']
