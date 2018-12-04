@@ -10,7 +10,6 @@ steps:
   waitFor: ['-']
   id: B
 - name: gcr.io/cloud-builders/docker
-  args: ['start']
-  env: ['run', '--name', 'postgres-test', '--network','cloudbuild-net','gcr.io/axon-staging/postgres-test']
+  args: ['run', '--name', 'postgres-test', '--network','cloudbuild-net','gcr.io/axon-staging/postgres-test']
   id: C
   waitFor: ['B']
