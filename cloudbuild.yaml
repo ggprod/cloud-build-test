@@ -9,6 +9,7 @@ steps:
   id: B
 - name: gcr.io/cloud-builders/npm
   args: ['start']
+  dir: 'container1'
   env: ['PGHOST=step_0', 'PGPASSWORD=postgres', 'PGUSER=posgres', 'PGDATABASE=postgres']
   id: C
   waitFor: ['B']
