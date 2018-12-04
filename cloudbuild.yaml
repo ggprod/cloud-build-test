@@ -2,14 +2,3 @@ steps:
 - name: gcr.io/axon-staging/docker-compose
   args: ['up']
   id: A
-- name: gcr.io/cloud-builders/npm
-  args: ['install']
-  dir: 'container1'
-  waitFor: ['-']
-  id: B
-- name: gcr.io/cloud-builders/npm
-  args: ['start']
-  dir: 'container1'
-  env: ['PGHOST=step_0', 'PGPASSWORD=postgres', 'PGUSER=posgres', 'PGDATABASE=postgres']
-  id: C
-  waitFor: ['B']

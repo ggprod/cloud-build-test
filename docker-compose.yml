@@ -5,6 +5,8 @@ services:
     container_name: postgres-container
     environment:
       - POSTGRES_PASSWORD=postgres
+  test-container:
+    build: container1
 networks:
   default:
     external:
