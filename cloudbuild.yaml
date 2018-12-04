@@ -1,15 +1,16 @@
 steps:
 - name: gcr.io/cloud-builders/docker
-  args: ['run', '--name', 'postgres-container', '-e', 'POSTGRES_PASSWORD=postgres', '-p','5432:5432','postgres']
+  args: ['network', 'create', 'cloudbuild-net']
+- name: gcr.io/cloud-builders/docker
+  args: ['run', '--name', 'postgres-container', '-e', 'POSTGRES_PASSWORD=postgres', '--network','cloudbuild-net','postgres']
   id: A
 - name: gcr.io/cloud-builders/npm
   args: ['install']
   dir: 'container1'
   waitFor: ['-']
   id: B
-- name: gcr.io/cloud-builders/npm
+- name: gcr.io/cloud-builders/docker
   args: ['start']
-  env: ['PGHOST=step_0', 'PGPASSWORD=postgres', 'PGUSER=posgres', 'PGDATABASE=postgres']
+  env: ['run', '--name', 'postgres-test', '--network','cloudbuild-net','gcr.io/axon-staging/postgres-test']
   id: C
-  dir: 'container1'
   waitFor: ['B']
